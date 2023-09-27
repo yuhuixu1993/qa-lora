@@ -26,6 +26,10 @@ pip install protobuf==3.20.*
 ```
 change the peft_utils.py in your auto-gptq path(python path/auto_gptq/utils/peft_utils.py) with the new one.
 
+## Quantization
+We use [GPTQ](https://github.com/qwopqwop200/GPTQ-for-LLaMa) for quantization. 
+bits=4, group-size=32, act-order=False
+
 ## Training
 ```bash
 python qalora.py --quantized_model_path <path>
@@ -37,8 +41,8 @@ config.json             llama7b-4bit-32g.bin  special_tokens_map.json  tokenizer
 generation_config.json  quantize_config.json      tokenizer.model
 ```
 
-## Quantization
-We use [GPTQ](https://github.com/qwopqwop200/GPTQ-for-LLaMa) for quantization. 
-bits=4, group-size=32, act-order=False
+## Merge
+Note that, our trained LoRA modules can be perfectly merged into the quantized model. We offer a simple merged script in this repo.
+
 ## Acknoledgements
 Our code is based on [QLoRA](https://github.com/artidoro/qlora), [GPTQLORA](https://github.com/qwopqwop200/gptqlora), [Auto-GPTQ](https://github.com/PanQiWei/AutoGPTQ/tree/main)
