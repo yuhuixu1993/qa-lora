@@ -4,8 +4,8 @@ This repository provides the PyTorch implementation of [QA-LoRA: Quantization-Aw
 
 ## Installation
 ```bash
-conda create -n gptqlora python=3.8
-conda activate gptqlora
+conda create -n qalora python=3.8
+conda activate qalora
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
 git clone -b peft_integration https://github.com/PanQiWei/AutoGPTQ.git && cd AutoGPTQ
 pip install .[triton]
