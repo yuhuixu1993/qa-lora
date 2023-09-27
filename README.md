@@ -24,11 +24,12 @@ pip install git+https://github.com/huggingface/accelerate.git
 pip install -r requirements.txt
 pip install protobuf==3.20.*
 ```
-change the peft_utils.py in your auto-gptq path(python path/auto_gptq/utils/peft_utils.py) with the new one.
+change the `peft_utils.py` in your own auto-gptq path(python path/auto_gptq/utils/peft_utils.py) with the new one.
 
 ## Quantization
 We use [GPTQ](https://github.com/qwopqwop200/GPTQ-for-LLaMa) for quantization. 
 bits=4, group-size=32, act-order=False
+If you change the group-size, you need to change the group_size in `peft_utils.py` and `merge.py` accordingly.
 
 ## Training
 ```bash
