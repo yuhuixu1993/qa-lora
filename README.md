@@ -52,5 +52,5 @@ generation_config.json  quantize_config.json      tokenizer.model
 ## Merge
 Note that our trained LoRA modules can be perfectly merged into the quantized model. We offer a simple merged script in this repo.
 
-## Acknoledgements
+## Acknowledgements
 Our code is based on [QLoRA](https://github.com/artidoro/qlora), [GPTQLORA](https://github.com/qwopqwop200/gptqlora), [Auto-GPTQ](https://github.com/PanQiWei/AutoGPTQ/tree/main)
