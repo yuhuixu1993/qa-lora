@@ -6,6 +6,8 @@ This repository provides the PyTorch implementation of [QA-LoRA: Quantization-Aw
   <img src="image/qalora.png" width="600"/>
 </div>
 
+QA-LoRA is easily implemented with a few lines of code, and it equips the original LoRA with two-fold abilities: (i) during fine-tuning, the LLM's weights are quantized (e.g., into INT4) to reduce time and memory usage; (ii) after fine-tuning, the LLM and auxiliary weights are naturally integrated into a quantized model without loss of accuracy.
+
 ## Installation
 ```bash
 conda create -n qalora python=3.8
