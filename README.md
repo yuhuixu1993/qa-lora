@@ -25,5 +25,20 @@ pip install -r requirements.txt
 pip install protobuf==3.20.*
 ```
 change the peft_utils.py in your auto-gptq path(python path/auto_gptq/utils/peft_utils.py) with the new one.
+
+## Training
+```bash
+python qalora.py --quantized_model_path <path>
+```
+
+The file structure of the model checkpoint is as follows:
+```
+config.json             llama7b-4bit-32g.bin  special_tokens_map.json  tokenizer_config.json
+generation_config.json  quantize_config.json      tokenizer.model
+```
+
+## Quantization
+We use [GPTQ](https://github.com/qwopqwop200/GPTQ-for-LLaMa) for quantization. 
+bits=4, group-size=32, act-order=False
 ## Acknoledgements
 Our code is based on [QLoRA](https://github.com/artidoro/qlora), [GPTQLORA](https://github.com/qwopqwop200/gptqlora), [Auto-GPTQ](https://github.com/PanQiWei/AutoGPTQ/tree/main)
