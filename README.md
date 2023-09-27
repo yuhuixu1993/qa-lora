@@ -40,7 +40,7 @@ If you change the group-size, you need to change the group_size in `peft_utils.p
 
 ## Training
 ```bash
-python qalora.py --quantized_model_path <path>
+python qalora.py --model_path <path>
 ```
 
 The file structure of the model checkpoint is as follows:
