@@ -30,7 +30,8 @@ pip install git+https://github.com/huggingface/accelerate.git
 pip install -r requirements.txt
 pip install protobuf==3.20.*
 ```
-change the `peft_utils.py` in your own auto-gptq path(python path/auto_gptq/utils/peft_utils.py) with the new one.
+Change the `peft_utils.py` in your own auto-gptq path(python path/auto_gptq/utils/peft_utils.py) with the new one.
+For the users of [GPTQLORA](https://github.com/qwopqwop200/gptqlora), you only need to change the `peft_utils.py` file.
 
 ## Quantization
 We use [GPTQ](https://github.com/qwopqwop200/GPTQ-for-LLaMa) for quantization. 
