@@ -18,9 +18,9 @@ import transformers
 from torch.nn.utils.rnn import pad_sequence
 import argparse
 from transformers import (
-    AutoTokenizer, 
-    AutoModelForCausalLM, 
-    set_seed, 
+    AutoTokenizer,
+    AutoModelForCausalLM,
+    set_seed,
     Seq2SeqTrainer,
     LlamaTokenizerFast
 )
@@ -62,7 +62,7 @@ def prepare_model_for_int8_training(model, use_gradient_checkpointing=True):
     for name, param in model.named_parameters():
         # freeze base model's layers
         param.requires_grad = False
-        
+
     if use_gradient_checkpointing:
         # For backward compatibility
         if hasattr(model, "enable_input_require_grads"):
@@ -217,17 +217,17 @@ class GenerationArguments:
     num_beams: Optional[int] = field(default=1)
     num_beam_groups: Optional[int] = field(default=1)
     penalty_alpha: Optional[float] = field(default=None)
-    use_cache: Optional[bool] = field(default=True) 
+    use_cache: Optional[bool] = field(default=True)
 
     # Hyperparameters for logit manipulation
     temperature: Optional[float] = field(default=1.0)
     top_k: Optional[int] = field(default=50)
     top_p: Optional[float] = field(default=1.0)
     typical_p: Optional[float] = field(default=1.0)
-    diversity_penalty: Optional[float] = field(default=0.0) 
-    repetition_penalty: Optional[float] = field(default=1.0) 
+    diversity_penalty: Optional[float] = field(default=0.0)
+    repetition_penalty: Optional[float] = field(default=1.0)
     length_penalty: Optional[float] = field(default=1.0)
-    no_repeat_ngram_size: Optional[int] = field(default=0) 
+    no_repeat_ngram_size: Optional[int] = field(default=0)
 
 def find_all_linear_names(args, model):
     cls = GeneralQuantLinear if not(args.full_finetune) else torch.nn.Linear
@@ -408,9 +408,9 @@ class DataCollatorForCausalLM(object):
         )
         # Build the input and labels for causal LM
         input_ids = []
-        labels = [] 
+        labels = []
         for tokenized_source, tokenized_target in zip(
-            tokenized_sources_with_prompt['input_ids'], 
+            tokenized_sources_with_prompt['input_ids'],
             tokenized_targets['input_ids']
         ):
             if not self.predict_with_generate:
@@ -478,7 +478,7 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
 
     Available datasets to be selected with `dataset` argument:
         - alpaca, 52002 examples
-        - alpaca cleaned, 51942 examples   
+        - alpaca cleaned, 51942 examples
         - chip2 (OIG), 210289 examples
         - self-instruct, 82612 examples
         - hh-rlhf (Anthropic), 160800 examples
@@ -555,14 +555,14 @@ def make_data_module(tokenizer: transformers.PreTrainedTokenizer, args) -> Dict:
             train_dataset = train_dataset.map(lambda x: {'length': len(x['input']) + len(x['output'])})
 
     data_collator = DataCollatorForCausalLM(
-        tokenizer=tokenizer, 
+        tokenizer=tokenizer,
         source_max_len=args.source_max_len,
         target_max_len=args.target_max_len,
         train_on_source=args.train_on_source,
         predict_with_generate=args.predict_with_generate,
     )
     return dict(
-        train_dataset=train_dataset if args.do_train else None, 
+        train_dataset=train_dataset if args.do_train else None,
         eval_dataset=eval_dataset if args.do_eval else None,
         predict_dataset=eval_dataset if args.do_predict else None,
         data_collator=data_collator
@@ -592,7 +592,7 @@ def train():
     args = argparse.Namespace(
         **vars(model_args), **vars(data_args), **vars(training_args)
     )
-    
+
 
     checkpoint_dir, completed_training = get_last_checkpoint(args.output_dir)
     if completed_training:
@@ -610,7 +610,7 @@ def train():
         if not os.path.exists(checkpoint_name):
             checkpoint_path = os.path.join(
                 checkpoint_dir, "adapter_model"
-            ) 
+            )
 
             checkpoint_name = os.path.join(
                 checkpoint_path, "adapter_model.bin"
@@ -638,18 +638,18 @@ def train():
         padding_side="right",
         use_fast=True,
     )
-    
+
     if tokenizer.pad_token is None:
         smart_tokenizer_and_embedding_resize(
             special_tokens_dict=dict(pad_token=DEFAULT_PAD_TOKEN),
             tokenizer=tokenizer,
             model=model,
         )
-        
+
     if isinstance(tokenizer, LlamaTokenizerFast):
         # LLaMA tokenizer may not have correct special tokens set.
         # Check and add them if missing to prevent them from being parsed into different tokens.
-        # Note that these are present in the vocabulary. 
+        # Note that these are present in the vocabulary.
         # Note also that `model.config.pad_token_id` is 0 which corresponds to `<unk>` token.
         tokenizer.add_special_tokens(
             {
@@ -658,10 +658,10 @@ def train():
                 "unk_token": tokenizer.convert_ids_to_tokens(model.config.pad_token_id),
             }
         )
-    
+
     data_module = make_data_module(tokenizer=tokenizer, args=args)
     trainer = Seq2SeqTrainer(
-        model=model, 
+        model=model,
         tokenizer=tokenizer,
         args=training_args,
         **{k:v for k,v in data_module.items() if k != 'predict_dataset'},
@@ -714,7 +714,7 @@ def train():
                     for label in labels.tolist():
                         if label in abcd_idx:
                             refs += [abcd_idx.index(label)]
-                    
+
                     loss_mmlu += loss.item()
                 # Extract results by subject.
                 results = {'mmlu_loss':loss_mmlu/len(data_loader)}
