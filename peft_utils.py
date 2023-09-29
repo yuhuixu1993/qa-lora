@@ -93,6 +93,21 @@ class GPTQLoraLinear(torch.nn.Linear, LoraLayer):
 
 class GPTQLoraModel(LoraModel):
     def _find_and_replace(self, adapter_name):
+        """
+        see: https://github.com/huggingface/peft/blob/bedcaa4f82e26f61e99729e4ef8ed1407e919cc5/src/peft/tuners/lora/model.py#L156-L165
+        """
+        raise NotImplementedError("_find_and_replace was replaced by _create_and_replace")
+
+    def _create_and_replace(
+        self,
+        peft_config: PeftConfig,
+        adapter_name: str,
+        target: torch.nn.Module,
+        target_name: str,
+        parent: torch.nn.Module,
+        current_key,
+        **optional_kwargs,
+    ):
         lora_config = self.peft_config[adapter_name]
         is_target_modules_in_base_model = False
         kwargs = {
@@ -243,6 +258,21 @@ class GPTQSVDLinear(torch.nn.Linear, AdaLoraLayer):
 
 class GPTQAdaLoraModel(AdaLoraModel):
     def _find_and_replace(self, adapter_name):
+        """
+        see: https://github.com/huggingface/peft/blob/bedcaa4f82e26f61e99729e4ef8ed1407e919cc5/src/peft/tuners/lora/model.py#L156-L165
+        """
+        raise NotImplementedError("_find_and_replace was replaced by _create_and_replace")
+
+    def _create_and_replace(
+        self,
+        peft_config: PeftConfig,
+        adapter_name: str,
+        target: torch.nn.Module,
+        target_name: str,
+        parent: torch.nn.Module,
+        current_key,
+        **optional_kwargs,
+    ):
         lora_config = self.peft_config[adapter_name]
         is_target_modules_in_base_model = False
         kwargs = {
