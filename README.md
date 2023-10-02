@@ -56,6 +56,7 @@ Note that our trained LoRA modules can be perfectly merged into the quantized mo
 There are two kinds of implementations of the dimention reduction(x from D_in to D_in//L)
 the first one(this repo) adopts avgpooling operation. But the weights of adapters will be divided by D_in//L during merge(refer to `merge.py`).
 ```bash
+adapter_result = (lora_B(lora_A(lora_dropout(self.qa_pool(x)))） * scale).type_as(result)
 ```
 the second one utilizes sum operation. The adapters do not need to be divided during merge)
 
