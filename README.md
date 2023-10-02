@@ -58,12 +58,14 @@ There are two kinds of implementations of the dimention reduction(x from D_in to
 Adopt avgpooling operation. But the weights of adapters will be divided by D_in//L during merge(refer to `merge.py`).
 ```bash
 adapter_result = (lora_B(lora_A(lora_dropout(self.qa_pool(x)))） * scale).type_as(result)
+model[tmp_key+'.qzeros'] -= (lora['base_model.model.'+tmp_key+'.lora_B.weight'] @ lora['base_model.model.'+tmp_key+'.lora_A.weight']).t() * scale / group_size / model[tmp_key+'.scales']
 ```
 ### The second one 
 Utilize sum operation. The adapters do not need to be divided during merge)
 
 ```bash
 adapter_result = (lora_B(lora_A(lora_dropout(self.qa_pool(x) * group_size))） * scale).type_as(result)
+model[tmp_key+'.qzeros'] -= (lora['base_model.model.'+tmp_key+'.lora_B.weight'] @ lora['base_model.model.'+tmp_key+'.lora_A.weight']).t() * scale / model[tmp_key+'.scales']
 ```
 
 ## Acknowledgements
