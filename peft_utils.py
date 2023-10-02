@@ -81,7 +81,7 @@ class GPTQLoraLinear(torch.nn.Linear, LoraLayer):
             scale = self.scaling[self.active_adapter]
 
             x = x.type_as(lora_A.weight.data)
-            adapter_result = (lora_B(lora_A(lora_dropout(self.qa_pool(x))) * scale).type_as(result))
+            adapter_result = (lora_B(lora_A(lora_dropout(self.qa_pool(x)))） * scale).type_as(result)
             result += adapter_result
         else:
             result = self.linear_module(x)
