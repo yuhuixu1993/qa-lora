@@ -53,7 +53,7 @@ generation_config.json  quantize_config.json      tokenizer.model
 Note that our trained LoRA modules can be perfectly merged into the quantized model. We offer a simple merged script in this repo.
 
 ## Notice 
-There are two kinds of implementations of the dimention reduction(x from D_in to D_in//L)
+There are two kinds of implementations of the dimention reduction(x from D_in to D_in//L). Both are mathematical equivalent.
 ### The first one(this repo)
 Adopt avgpooling operation. But the weights of adapters will be divided by D_in//L during merge(refer to `merge.py`).
 ```bash
