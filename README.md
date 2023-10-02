@@ -52,5 +52,16 @@ generation_config.json  quantize_config.json      tokenizer.model
 ## Merge
 Note that our trained LoRA modules can be perfectly merged into the quantized model. We offer a simple merged script in this repo.
 
+## Notice 
+There are two kinds of implementations of the dimention reduction(x from D_in to D_in//L)
+the first one(this repo) adopts avgpooling operation. But the weights of adapters will be divided by D_in//L during merge(refer to `merge.py`).
+```bash
+```
+the second one utilizes sum operation. The adapters do not need to be divided during merge)
+
+```bash
+```
+B
+
 ## Acknowledgements
 Our code is based on [QLoRA](https://github.com/artidoro/qlora), [GPTQLORA](https://github.com/qwopqwop200/gptqlora), [Auto-GPTQ](https://github.com/PanQiWei/AutoGPTQ/tree/main)
