@@ -71,6 +71,6 @@ model[tmp_key+'.qzeros'] -= (lora['base_model.model.'+tmp_key+'.lora_B.weight'] 
 
 ### About the quantization
 
-Some GPTQ implementation such as
+Some GPTQ implementation such as [GPTQ-for-llama](https://github.com/qwopqwop200/GPTQ-for-LLaMa) further compress the zeros into qzeros. You need to decode the qzeros first and restore fp16 format zeros.
 ## Acknowledgements
 Our code is based on [QLoRA](https://github.com/artidoro/qlora), [GPTQLORA](https://github.com/qwopqwop200/gptqlora), [Auto-GPTQ](https://github.com/PanQiWei/AutoGPTQ/tree/main)
