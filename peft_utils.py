@@ -51,7 +51,7 @@ class GPTQLoraLinear(torch.nn.Linear, LoraLayer):
 
         self.update_layer(adapter_name, r, lora_alpha, lora_dropout, init_lora_weights)
         self.active_adapter = adapter_name
-        self.qa_pool = nn.AvgPool1d(group_size)  # using pooling layer to conduct sum operation
+        self.qa_pool = torch.nn.AvgPool1d(group_size)  # using pooling layer to conduct sum operation
 
     def reset_lora_parameters(self, adapter_name):
         if adapter_name in self.lora_A.keys():
@@ -81,7 +81,7 @@ class GPTQLoraLinear(torch.nn.Linear, LoraLayer):
             scale = self.scaling[self.active_adapter]
 
             x = x.type_as(lora_A.weight.data)
-            adapter_result = (lora_B(lora_A(lora_dropout(self.qa_pool(x)))） * scale).type_as(result)
+            adapter_result = (lora_B(lora_A(lora_dropout(self.qa_pool(x)))) * scale).type_as(result)
             result += adapter_result
         else:
             result = self.linear_module(x)
