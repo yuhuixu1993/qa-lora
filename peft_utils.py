@@ -38,7 +38,7 @@ class GPTQLoraLinear(torch.nn.Linear, LoraLayer):
         init_lora_weights = kwargs.pop("init_lora_weights", True)
 
         torch.nn.Linear.__init__(self, linear_module.in_features, linear_module.out_features)
-        LoraLayer.__init__(self, linear_module.in_features, linear_module.out_features)
+        LoraLayer.__init__(self, linear_module.in_features//group_size, linear_module.out_features)
 
         self.linear_module = linear_module
 
