@@ -4,3 +4,6 @@ rouge-score==0.1.2
 scikit-learn==1.2.2
 sentencepiece==0.1.99
 wandb==0.15.2
+transformers==4.31.0
+peft==0.4.0
+accelerate==0.21.0
