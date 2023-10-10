@@ -9,7 +9,7 @@ This repository provides the PyTorch implementation of [QA-LoRA: Quantization-Aw
 QA-LoRA is easily implemented with a few lines of code, and it equips the original LoRA with two-fold abilities: (i) during fine-tuning, the LLM's weights are quantized (e.g., into INT4) to reduce time and memory usage; (ii) after fine-tuning, the LLM and auxiliary weights are naturally integrated into a quantized model without loss of accuracy.
 
 ## Todo list
-Solving the conflict with the newest Auto-gptq version.
+Fix the conflict with the newest Auto-gptq version.
 
 ## Installation
 ```bash
