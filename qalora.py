@@ -284,7 +284,7 @@ def get_accelerate_model(args, checkpoint_dir):
         device_map='auto',
         max_memory=max_memory,
         trust_remote_code=args.trust_remote_code,
-        inject_fused_attention = True,
+        inject_fused_attention = False,
         inject_fused_mlp = False,
         use_triton=True,
         warmup_triton=False,
