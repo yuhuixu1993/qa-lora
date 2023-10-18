@@ -1,6 +1,6 @@
 # QA-LoRA
 
-This repository provides the PyTorch implementation of [QA-LoRA: Quantization-Aware Low-Rank Adaptation of Large Language Models](https://arxiv.org/pdf/2309.14717.pdf)
+This repository provides the PyTorch reimplementation of [QA-LoRA: Quantization-Aware Low-Rank Adaptation of Large Language Models](https://arxiv.org/pdf/2309.14717.pdf)
 
 <div align="center">
   <img src="image/qalora.png" width="600"/>
