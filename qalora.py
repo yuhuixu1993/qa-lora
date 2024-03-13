@@ -77,6 +77,11 @@ def prepare_model_for_int8_training(model, use_gradient_checkpointing=True):
         # enable gradient checkpointing for memory efficiency
         model.gradient_checkpointing_enable()
 
+    model.lm_head = model.lm_head.float()
+    for _, param in model.named_parameters():
+        if param.dtype == torch.float16:
+            param = param.float()
+
     return model
 
 @dataclass

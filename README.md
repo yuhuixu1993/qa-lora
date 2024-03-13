@@ -17,23 +17,17 @@ Fix the conflict with the newest Auto-gptq version.
 ```bash
 conda create -n qalora python=3.8
 conda activate qalora
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117
+conda install pytorch==2.2.0 torchvision==0.17.0 torchaudio==2.2.0 pytorch-cuda=12.1 -c pytorch -c nvidia
 git clone -b v0.3.0 https://github.com/PanQiWei/AutoGPTQ.git && cd AutoGPTQ
-pip install .[triton]
+pip install .
 cd ..
-git clone https://github.com/timdettmers/bitsandbytes.git
-cd bitsandbytes
-# CUDA_VERSIONS in {110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 120}
-# make argument in {cuda110, cuda11x, cuda12x}
-# if you do not know what CUDA you have, try looking at the output of: python -m bitsandbytes
-CUDA_VERSION=117 make cuda11x
-python setup.py install
-cd ..
+pip install bitsandbytes
 pip install -r requirements.txt
 pip install protobuf==3.20.*
 ```
 Change the `peft_utils.py` in your own auto-gptq path(python path/auto_gptq/utils/peft_utils.py) with the new one.
 For the users of [GPTQLORA](https://github.com/qwopqwop200/gptqlora), you only need to change the `peft_utils.py` file.
+
 
 ## Quantization
 We use [GPTQ](https://github.com/qwopqwop200/GPTQ-for-LLaMa) for quantization. 
